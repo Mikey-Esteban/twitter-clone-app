@@ -14,7 +14,8 @@ module Api
       end
 
       def show
-        chirp = Chirp.find_by(params[:id])
+        puts "show is called"
+        chirp = Chirp.find_by(id: params[:id])
 
         render json: ChirpSerializer.new(chirp).serializable_hash.to_json
       end
@@ -30,7 +31,9 @@ module Api
       end
 
       def update
-        chirp = Chirp.find_by(params[:id])
+        puts "update is called"
+        chirp = Chirp.find_by(id: params[:id])
+        puts "chirp: #{chirp}"
 
         if chirp.update(chirp_params)  # need to add params to update
           render json: ChirpSerializer.new(chirp).serializable_hash.to_json
@@ -40,7 +43,7 @@ module Api
       end
 
       def destroy
-        chirp = Chirp.find_by(params[:id])
+        chirp = Chirp.find_by(id: params[:id])
 
         if chirp.destroy
           head :no_content

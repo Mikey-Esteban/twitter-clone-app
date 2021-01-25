@@ -1,13 +1,17 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+import Navbar from '../Navbar'
 import NewChirp from './NewChirp'
 import Chirp from './Chirp'
 
+const Wrapper = styled.div`
+  margin-top: 100px;
+`
+
 const Main = styled.div`
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 800px;
+  margin: 50px auto;
+  max-width: 600px;
 `
 
 const Chirps = () => {
@@ -40,10 +44,11 @@ const Chirps = () => {
       .catch( resp => console.log(resp) )
   }
 
-  const list = chirps.map( item => <Chirp key={item.id} attributes={item.attributes} /> )
+  const list = chirps.map( item => <Chirp key={item.id} attributes={item.attributes} id={item.id} /> )
 
   return (
-    <Fragment>
+    <Wrapper>
+      <Navbar />
       <div>This is my Chirps component</div>
       <NewChirp
         handleChange={handleChange}
@@ -51,7 +56,7 @@ const Chirps = () => {
         chirp={chirp}
       />
       <Main>{list}</Main>
-    </Fragment>
+    </Wrapper>
   )
 }
 
