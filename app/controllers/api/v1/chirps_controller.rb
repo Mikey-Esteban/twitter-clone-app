@@ -4,15 +4,19 @@ module Api
       protect_from_forgery with: :null_session
 
       def index
-        chirps = Chirp.all.order(created_at: :desc)
+        chirps = Chirp.all
 
-        render json: ChirpSerializer.new(chirps, options).serializable_hash.to_json
+        render json: ChirpSerializer.new(chirps).serializable_hash.to_json
+      end
+
+      def new
+        chirp = Chirp.new(chirp_params)
       end
 
       def show
         chirp = Chirp.find_by(params[:id])
 
-        render json: ChirpSerializer.new(chirp, options).serializable_hash.to_json
+        render json: ChirpSerializer.new(chirp).serializable_hash.to_json
       end
 
       def create
@@ -29,7 +33,7 @@ module Api
         chirp = Chirp.find_by(params[:id])
 
         if chirp.update(chirp_params)  # need to add params to update
-          render json: ChirpSerializer.new(chirp, options).serializable_hash.to_json
+          render json: ChirpSerializer.new(chirp).serializable_hash.to_json
         else
           render json: { error: chirp.errors.messages }, status: 422
         end
@@ -51,9 +55,9 @@ module Api
         params.require(:chirp).permit(:chirp)
       end
 
-      def options
-        @options ||= { include: %i[comments] }
-      end
+      # def options
+      #   @options ||= { include: %i[comments] }
+      # end
     end
   end
 end
