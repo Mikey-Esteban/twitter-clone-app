@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import Navbar from '../Navbar'
-import NewChirp from './NewChirp'
+import NewChirp from '../Forms/New'
 import Chirp from './Chirp'
 
 const Wrapper = styled.div`

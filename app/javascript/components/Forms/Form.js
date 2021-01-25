@@ -56,25 +56,27 @@ const Field = styled.div`
   }
 `
 
-const NewChirp = (props) => {
+const Form = (props) => {
+  const { formTitle, handleSubmit, handleChange, labelText, submitText, chirp } = props
+  
   return (
     <Wrapper>
-      <div>[Form for new chirp goes here.]</div>
-      <form onSubmit={props.handleSubmit}>
+      <div>{formTitle}</div>
+      <form onSubmit={handleSubmit}>
         <Field>
-          <label htmlFor="chirp">New Chirp!</label>
-          <textarea name="chirp" placeholder="I fear a political career could shine a negative light on my drug dealing."
-            value={props.chirp.chirp || ''}
-            onChange={props.handleChange}
+          <label htmlFor="chirp">{labelText}</label>
+          <textarea name="chirp" placeholder={chirp.chirp || "I fear a political career could shine a negative light on my drug dealing."}
+            value={chirp.chirp || ''}
+            onChange={handleChange}
           />
         </Field>
 
         <Field>
-          <input type="submit" value="Create Chirp"/>
+          <input type="submit" value={submitText} />
         </Field>
       </form>
     </Wrapper>
   )
 }
 
-export default NewChirp
+export default Form

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Chirps from './Chirps/Chirps'
-import EditChirp from './Chirps/EditChirp'
+import EditChirp from './Forms/Edit'
 
 const App = () => {
   return (
