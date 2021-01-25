@@ -2,6 +2,13 @@ import React, { useState, useEffect, Fragment } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import NewChirp from './NewChirp'
+import Chirp from './Chirp'
+
+const Main = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
+`
 
 const Chirps = () => {
 
@@ -18,15 +25,22 @@ const Chirps = () => {
   }, [chirps.length])
 
   const handleChange = e => {
-    console.log('name:', e.target.name, 'value:', e.target.value);
+    setChirp({...chirp, [e.target.name]:e.target.value})
   }
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log(e);
+
+    // make an axios post
+    axios.post('/api/v1/chirps', {chirp})
+      .then( resp => {
+        setChirps([...chirps, resp.data.data])
+        setChirp({})
+      })
+      .catch( resp => console.log(resp) )
   }
 
-  const list = chirps.map( item => <li>{item.attributes.chirp}</li> )
+  const list = chirps.map( item => <Chirp key={item.id} attributes={item.attributes} /> )
 
   return (
     <Fragment>
@@ -36,7 +50,7 @@ const Chirps = () => {
         handleSubmit={handleSubmit}
         chirp={chirp}
       />
-      <ul>{list}</ul>
+      <Main>{list}</Main>
     </Fragment>
   )
 }
